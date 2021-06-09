@@ -1,5 +1,5 @@
 import "dart:ui";
-import 'package:bergedil_lovers/mainscreen.dart';
+import 'package:bergedil_lovers/main.dart';
 import 'package:bergedil_lovers/registrationscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

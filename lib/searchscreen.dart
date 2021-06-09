@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:bergedil_lovers/main.dart';
 import 'package:bergedil_lovers/product.dart';
-import 'package:bergedil_lovers/searchscreen.dart';
-import 'package:bergedil_lovers/splashscreen.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bergedil_lovers/newproduct.dart';
@@ -9,45 +9,34 @@ import 'package:intl/intl.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Bergedil Lovers Shop',
-      home: MainScreen(),
-    );
-  }
-}
-
-class MainScreen extends StatefulWidget {
+class SearchScreen extends StatefulWidget {
   final Product product;
-  const MainScreen({Key key, this.product}) : super(key: key);
+  const SearchScreen({Key key, this.product}) : super(key: key);
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _SearchScreenState extends State<SearchScreen> {
   ProgressDialog pr;
   double screenHeight, screenWidth;
-  List _productList;
-
+  List _searchList;
   final df = new DateFormat('dd-MM-yyyy hh:mm a');
+TextEditingController _searchCtrl = new TextEditingController();
+    
 
   @override
   void initState() {
     super.initState();
-    _testasync();
-    //_searchProduct();
+    //_searchProduct(search);
   }
 
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController _searchCtrl = new TextEditingController();
+    String search = _searchCtrl.toString();
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -60,8 +49,10 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.deepPurple,
         ),
         body: Column(children: [
-          _productList == null
-              ? Flexible(child: Center(child: Text("No products")))
+          _searchList == null
+              ? Flexible(
+                  child:
+                      Center(child: Text("Product searched is unavailable.")))
               : Flexible(
                   child: Container(
                   child: Column(
@@ -78,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
                             decoration: InputDecoration(
                               hintText: "Search product",
                               suffixIcon: IconButton(
-                                onPressed: () => _searchProduct(),
+                                onPressed: () => _searchProduct(search),
                                 icon: Icon(Icons.search),
                               ),
                               border: OutlineInputBorder(
@@ -92,7 +83,7 @@ class _MainScreenState extends State<MainScreen> {
                         Flexible(
                           flex: 9,
                           child: ListView.builder(
-                            itemCount: _productList.length,
+                            itemCount: _searchList.length,
                             itemBuilder: (BuildContext ctxt, int index) {
                               return Padding(
                                   padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
@@ -118,7 +109,7 @@ class _MainScreenState extends State<MainScreen> {
                                                     height: 300,
                                                     width: 300,
                                                     imageUrl:
-                                                        "${_productList[index]['picture']}",
+                                                        "${_searchList[index]['picture']}",
                                                     fit: BoxFit.cover,
                                                     placeholder: (context,
                                                             url) =>
@@ -135,21 +126,21 @@ class _MainScreenState extends State<MainScreen> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  _productList[index]['prname'],
+                                                  _searchList[index]['prname'],
                                                   style: TextStyle(
                                                       fontSize: 26,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
                                                 Text(df.format(DateTime.parse(
-                                                    _productList[index]
+                                                    _searchList[index]
                                                         ['datecreated']))),
                                                 Text(
-                                                    'Price (RM): ${_productList[index]['prprice']}',
+                                                    'Price (RM): ${_searchList[index]['prprice']}',
                                                     style: TextStyle(
                                                         fontSize: 18)),
                                                 Text(
-                                                    'Quantity (Available): ${_productList[index]['prqty']}',
+                                                    'Quantity (Available): ${_searchList[index]['prqty']}',
                                                     style: TextStyle(
                                                         fontSize: 18)),
                                               ],
@@ -170,29 +161,24 @@ class _MainScreenState extends State<MainScreen> {
         context, MaterialPageRoute(builder: (content) => NewProduct()));
   }
 
-  _loadProduct(String prname) {
+  _searchProduct(String search) {
+    search = _searchCtrl.toString();
     http.post(
         Uri.parse(
-            "https://nurulida1.com/272834/bergedillovers/php/loadproduct.php"),
-        body: {}).then((response) {
+            "https://nurulida1.com/272834/bergedillovers/php/searchproduct.php"),
+        body: {
+          "prname": search,
+        }).then((response) {
       if (response.body == "nodata") {
+        print('Product searched is unavailable.');
         return;
       } else {
         var jsondata = json.decode(response.body);
-        _productList = jsondata["products"];
+        _searchList = jsondata["products"];
         //if (!mounted) return;
         setState(() {});
-        print(_productList);
+        print(_searchList);
       }
     });
-  }
-
-  _searchProduct() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (content) => SearchScreen()));
-  }
-
-  Future<void> _testasync() async {
-    _loadProduct("all");
   }
 }

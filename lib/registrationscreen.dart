@@ -17,7 +17,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController _passwordControllerA = new TextEditingController();
   TextEditingController _passwordControllerB = new TextEditingController();
   SharedPreferences prefs;
-  double screenHeight, screenWidth;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     SizedBox(height: 5),
                     TextField(
-                      controller: _nameController,
+                      controller: _nameController, //handle changes for textfield
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
  
  
 class MainScreen extends StatefulWidget {
@@ -12,6 +12,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Main Screen'),
+          backgroundColor: Colors.deepPurple,
         ),
         body: Center(
           child: Container(
@@ -20,4 +21,4 @@ class _MainScreenState extends State<MainScreen> {
         ),
     );
   }
-}
+}*/
