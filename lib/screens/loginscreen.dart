@@ -1,6 +1,6 @@
 import "dart:ui";
 import 'package:bergedil_lovers/main.dart';
-import 'package:bergedil_lovers/registrationscreen.dart';
+import 'package:bergedil_lovers/screens/registrationscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,7 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 5),
             Container(
                 margin: EdgeInsets.fromLTRB(30, 5, 30, 15),
-                //elevation: 10,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: Column(

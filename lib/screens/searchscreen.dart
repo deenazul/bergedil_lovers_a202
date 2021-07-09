@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'package:bergedil_lovers/main.dart';
 import 'package:bergedil_lovers/product.dart';
-
+import 'package:bergedil_lovers/product/newproduct.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:bergedil_lovers/newproduct.dart';
 import 'package:intl/intl.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
@@ -96,53 +94,34 @@ TextEditingController _searchCtrl = new TextEditingController();
                                           MainAxisAlignment.start,
                                       children: [
                                         Expanded(
-                                            flex: 6,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                SizedBox(
-                                                  height: 30,
-                                                ),
-                                                Container(
-                                                  child: CachedNetworkImage(
-                                                    height: 300,
-                                                    width: 300,
-                                                    imageUrl:
-                                                        "${_searchList[index]['picture']}",
-                                                    fit: BoxFit.cover,
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        new Transform.scale(
-                                                            scale: 0.5,
-                                                            child:
-                                                                CircularProgressIndicator()),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            new Icon(
-                                                      Icons.broken_image,
-                                                      size: screenWidth / 4,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  _searchList[index]['prname'],
-                                                  style: TextStyle(
-                                                      fontSize: 26,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text(df.format(DateTime.parse(
-                                                    _searchList[index]
-                                                        ['datecreated']))),
-                                                Text(
-                                                    'Price (RM): ${_searchList[index]['prprice']}',
-                                                    style: TextStyle(
-                                                        fontSize: 18)),
-                                                Text(
-                                                    'Quantity (Available): ${_searchList[index]['prqty']}',
-                                                    style: TextStyle(
-                                                        fontSize: 18)),
+                                          flex: 6,
+                                          child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                        children: [
+                                        SizedBox(
+                                          height: 30,
+                                            ),
+                                      Container(
+                                        child: CachedNetworkImage(
+                                          height: 300,
+                                          width: 300,
+                                          imageUrl: "${_searchList[index]['picture']}",
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) =>new Transform.scale(scale: 0.5,
+                                          child: CircularProgressIndicator()),
+                                          errorWidget:(context, url, error) =>
+                                          new Icon(Icons.broken_image,size: screenWidth / 4,
+                                          ),
+                                        ),
+                                      ),
+                                       Text(_searchList[index]['prname'],
+                                        style: TextStyle(fontSize: 26,fontWeight:FontWeight.bold),
+                                      ),
+                                      Text(df.format(DateTime.parse( _searchList[index]['datecreated']))),
+                                      Text('Price (RM): ${_searchList[index]['prprice']}',style: TextStyle( fontSize: 18)),
+                                      Text('Quantity (Available): ${_searchList[index]['prqty']}',
+                                      style: TextStyle(fontSize: 18)),
                                               ],
                                             )),
                                       ],
@@ -175,7 +154,6 @@ TextEditingController _searchCtrl = new TextEditingController();
       } else {
         var jsondata = json.decode(response.body);
         _searchList = jsondata["products"];
-        //if (!mounted) return;
         setState(() {});
         print(_searchList);
       }

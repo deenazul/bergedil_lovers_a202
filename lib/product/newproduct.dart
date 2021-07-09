@@ -143,8 +143,6 @@ class _NewProduct extends State<NewProduct> {
     } else {
       print('No image selected.');
     }
-
-    //_cropImage();
   }
 
   _chooseGallery() async {
@@ -199,7 +197,7 @@ class _NewProduct extends State<NewProduct> {
                           style: TextStyle(
                             color: Colors.black87,
                           )),
-                      color: Theme.of(context).accentColor,
+                      color: Colors.deepPurple,
                       elevation: 10,
                       onPressed: () =>
                           {Navigator.pop(context), _chooseCamera()},
@@ -214,7 +212,7 @@ class _NewProduct extends State<NewProduct> {
                           style: TextStyle(
                             color: Colors.black87,
                           )),
-                      color: Theme.of(context).accentColor,
+                      color: Colors.deepPurple,
                       elevation: 10,
                       onPressed: () =>
                           {Navigator.pop(context), _chooseGallery()},
