@@ -7,17 +7,17 @@ $mobile = $_GET['mobile'];
 $name = $_GET['name']; 
 $amount = $_GET['amount']; 
 
-$api_key = '991f6e0f-eba2-44b2-a857-59c91339b8de';
+$api_key = '';
 $collection_id = '5snrrsgb';
 $host = 'https://billplz-staging.herokuapp.com/api/v3/bills';
 
 
 $data = array(
           'collection_id' => $collection_id,
-          'email' => $email, //'irdinazulkeffli@gmail.com',
-          'mobile' => $mobile, //'0174690849',
-          'name' => $name, //'irdina',
-          'amount' => $amount * 100 , //'13' * 100,
+          'email' => $email,
+          'mobile' => $mobile, 
+          'name' => $name,
+          'amount' => $amount * 100 , 
 		  'description' => 'Payment for order: ',
           'callback_url' => "http://nurulida1.com/272834/bergedillovers/php/return_url",
           'redirect_url' => "http://nurulida1.com/272834/bergedillovers/php/payment_update.php?userid=$email&mobile=$mobile&amount=$amount" 
